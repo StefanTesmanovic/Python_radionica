@@ -1,0 +1,22 @@
+- tipovi
+- operatori
+- ulaz izlaz
+- if_else
+- kalkulator
+- liste
+- for.py
+- zbir_n_brojeva
+- zad: faktorijel
+- nad
+- zad: fibonaci
+- kopiranje
+- guessing game
+- matrice 
+- deepcp
+- matrice_pr1
+- matrice_zad <- zbir po vrstama, flip za 90 stepeni
+- try_except
+- trougao
+- vetrenjaca
+
+- debugger

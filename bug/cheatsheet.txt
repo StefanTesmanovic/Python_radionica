@@ -1,0 +1,2 @@
+zamenio sam true i false za demo, poslednja dva
+stavio sam da krece od 3
