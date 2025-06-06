@@ -1,27 +1,25 @@
-import json
+from skole_podaci import skole_podaci, predmeti_podaci
 from copy import deepcopy
 
-def ucitaj_podatke(putanja="skole_podaci.json"):
-    with open(putanja, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-skole = ucitaj_podatke()
-
-def ukupni_rezultat_ucenika(ucenik):
-    zbir = 0
-    for predmet, delovi in ucenik["ispiti"].items():
-        for deo, poeni in delovi.items():
-            if poeni is not None:
-                zbir += poeni  # ✅ Ispravljeno: ignorišemo None vrednosti
-    return zbir
+skole = skole_podaci
 
 def maksimalni_poeni_ucenika(ucenik):
-    max_poeni = 0
-    for delovi in ucenik["ispiti"].values():
-        for poeni in delovi.values():
+    max = 0
+    for predmet in ucenik.keys():
+        for deo in ucenik[predmet].keys():
+            poeni = ucenik[predmet][deo]
             if poeni is not None:
-                max_poeni += poeni  # ✅ Ispravljeno: koristimo stvarne maksimalne poene, ne fiksnih 30
-    return max_poeni
+                max += predmeti_podaci[predmet][deo] # ovde sam cackao
+    return max
+
+def ukupni_rezultat_ucenika(ucenik):
+    ukupno = 0
+    for predmet in ucenik.keys():
+        for deo in ucenik[predmet].keys():
+            poeni = ucenik[predmet][deo]
+            if poeni is not None:                   # ovde sam cackao
+                ukupno += poeni
+    return ukupno
 
 def prosek_ucenika(ucenik):
     uk = ukupni_rezultat_ucenika(ucenik)
@@ -30,39 +28,48 @@ def prosek_ucenika(ucenik):
         return 0
     return uk / mk
 
-def najbolji_ucenik(sve_skole):
+def najbolji_ucenik(skole):
     najbolji = None
-    najbolji_procenat = 0
-    for skola in sve_skole:
-        for ucenik in skola["ucenici"]:
-            procenat = prosek_ucenika(ucenik)  # ✅ Ispravljeno: koristi se procenat uspeha, ne zbir
-            if procenat > najbolji_procenat:
+    najbolji_procenat = 0                   # ovde sam cackao
+    for skola in skole.keys():
+        for ucenik in skole[skola].keys():
+            procenat = prosek_ucenika(skole[skola][ucenik])
+            if procenat > najbolji_procenat: # ovde sam cackao
                 najbolji = ucenik
                 najbolji_procenat = procenat
     return najbolji, najbolji_procenat
 
 def prosek_skole(skola):
     zbir = 0
-    for u in skola["ucenici"]:
-        zbir += prosek_ucenika(u)
-    return zbir / len(skola["ucenici"])
+    for ucenik in skola.keys():
+        zbir += prosek_ucenika(skola[ucenik])
+    return zbir / len(skola)
 
 def sortiraj_po_uspehu(ucenici):
-    kopija = deepcopy(ucenici)  # ✅ Ispravljeno: koristi deepcopy da ne menja original
-    kopija.sort(key=prosek_ucenika, reverse=True)
+    kopija = deepcopy(ucenici)
+    kopija = [(k, prosek_ucenika(v)) for k, v in kopija.items()] 
+    # pravi listu uredjenih parova (ime, procenat), for k,v in kopija.items()
+    #  može da se stavi jer kopija.items() bude uređeni par i onda k bude prvi element uređenog para, a v drugi element uređenog para
+    #  Ti elementi u uređenom paru su ključ i vrednost
+    kopija = sorted(kopija, key=lambda x: x[1], reverse=True)
     return kopija
 
-# Glavni tok
+
+
 najbolji, rez = najbolji_ucenik(skole)
-print(f"Najbolji učenik: {najbolji['ime']} sa uspešnošću {rez:.2%}")
+print(f"Najbolji učenik: {najbolji} sa uspešnošću {rez:.2%}")
 
 print("\nProsek po školama:")
-for skola in skole:
-    print(f"{skola['naziv']}: {prosek_skole(skola):.2%}")
+for skola in skole.keys():
+    print(f"{skola}: {prosek_skole(skole[skola]):.2%}")
 
-svi_ucenici = sum([s["ucenici"] for s in skole], [])
+
+svi_ucenici = {}
+for skola in skole.keys():
+    svi_ucenici |= skole[skola]
+
 top5 = sortiraj_po_uspehu(svi_ucenici)[:5]
 
 print("\nTop 5 učenika u zemlji:")
-for u in top5:
-    print(f"{u['ime']} - {prosek_ucenika(u):.2%}")
+for ime, procenat in top5:
+    print(f"{ime} - {procenat}")

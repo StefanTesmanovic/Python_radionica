@@ -1,0 +1,38 @@
+Najbolji učenik: Nemanja sa uspešnošću 73.00%
+
+Prosek po školama:
+Gimnazija: 51.38%
+Prva Tehnička: 49.62%
+Računarska škola: 54.65%
+
+Top 5 učenika u zemlji:
+Nemanja - 73.00%
+Luka - 60.77%
+Ivana - 58.46%
+Stefan - 52.61%
+Ana - 50.77%
+
+
+Uspeh se računa tako što se ukupan broj osvojenih poena podeli sa maksimalnim mogućim brojem poena
+
+
+-Poenit po predmetima
+MATEMATIKA
+- Teorija: od 0 do 30 poena
+- Praktično: od 0 do 30 poena
+
+FIZIKA
+- Teorija: od 0 do 20 poena
+- Praktično: od 0 do 20 poena (sa 10% šanse da izostane)
+
+HEMIJA
+- Test: od 0 do 25 poena
+- Laboratorija: od 0 do 25 poena
+
+PROGRAMIRANJE
+- Algoritmi: od 0 do 40 poena
+- Projektni rad: od 0 do 30 poena
+
+SRPSKI JEZIK
+- Esej: od 0 do 20 poena
+- Gramatika: od 0 do 20 poena

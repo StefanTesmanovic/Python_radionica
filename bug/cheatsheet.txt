@@ -1,2 +1,6 @@
 zamenio sam true i false za demo, poslednja dva
 stavio sam da krece od 3
+
+pokazati da kad se stavi na definiciju funkcije ne ulazi u funkciju
+pokazati watch promenljivih i izraza
+pokazati klasicno kretanje kroz kod, step over, step into...
