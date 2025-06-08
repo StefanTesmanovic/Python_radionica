@@ -11,6 +11,7 @@
 - zad: fibonaci
 - kopiranje
 - guessing game
+- dictionary
 - matrice 
 - deepcp
 - matrice_pr1

@@ -72,4 +72,4 @@ top5 = sortiraj_po_uspehu(svi_ucenici)[:5]
 
 print("\nTop 5 učenika u zemlji:")
 for ime, procenat in top5:
-    print(f"{ime} - {procenat}")
+    print(f"{ime} - {procenat:.2%}")
